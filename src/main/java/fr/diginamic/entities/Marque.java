@@ -36,6 +36,14 @@ public class Marque {
 	public Marque() {
 	}
 
+	/** Constructeur pour la requête SELECT
+	 * @param nom
+	 */
+	public Marque(String nom) {
+		super();
+		this.nom = nom;
+	}
+
 	@Override
 	public String toString() {
 		return "Marque: " + nom + ", id: " + id + ".";

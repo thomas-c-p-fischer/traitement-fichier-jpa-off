@@ -37,7 +37,7 @@ public class Produit {
 	private Marque marque;
 	
 	/** nom */
-	@Column(name = "NAME", nullable = false, length = 250)
+	@Column(name = "NAME", nullable = false, length = 250, unique = true)
 	private String nom;
 	
 	/** nutritionGrade */
@@ -64,12 +64,12 @@ public class Produit {
 	
 	/** valeurNutritionnelles */
 	@OneToOne
-	@JoinColumn(name = "ID")
+	@JoinColumn(name = "ID_VALEUR_NUTRITIONNELLE")
 	private ValeurNutritionnelle valeurNutritionnelle;
 	
 	/** vitamines */
 	@OneToOne
-	@JoinColumn(name = "ID")
+	@JoinColumn(name = "ID_VITAMINE")
 	private Vitamine vitamine;
 	
 	/** allergenes */
@@ -83,6 +83,18 @@ public class Produit {
 	 * 
 	 */
 	public Produit() {
+	}
+	
+	/** Constructeur pour la requête SELECT
+	 * @param nom
+	 * @param nutritionGrade
+	 * @param presenceHuileDePalme
+	 */
+	public Produit(String nom, String nutritionGrade, boolean presenceHuileDePalme) {
+		super();
+		this.nom = nom;
+		this.nutritionGrade = nutritionGrade;
+		this.presenceHuileDePalme = presenceHuileDePalme;
 	}
 
 	@Override

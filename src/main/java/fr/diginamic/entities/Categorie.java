@@ -36,6 +36,14 @@ public class Categorie {
 	public Categorie() {
 	}
 
+	/** Constructeur pour la requête SELECT
+	 * @param nom
+	 */
+	public Categorie(String nom) {
+		super();
+		this.nom = nom;
+	}
+
 	@Override
 	public String toString() {
 		return "Categorie: " + nom + ", id: " + id + ".";

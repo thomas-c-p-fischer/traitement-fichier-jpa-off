@@ -46,13 +46,25 @@ public class ValeurNutritionnelle {
 	
 	/** produit */
 	@OneToOne
-	@JoinColumn(name = "ID")
+	@JoinColumn(name = "ID_PRODUIT")
 	private Produit produit;
 
 	/** Constructeur
 	 * 
 	 */
 	public ValeurNutritionnelle() {
+	}
+
+	/** Constructeur
+	 * @param energie
+	 * @param graisse
+	 * @param sucre
+	 * @param fibre
+	 * @param proteine
+	 * @param sel
+	 */
+	public ValeurNutritionnelle(float energie, float graisse, float sucre, float fibre, float proteine, float sel) {
+		super();
 	}
 
 	@Override

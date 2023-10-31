@@ -25,12 +25,8 @@ public class Additif {
 	private Integer id;
 	
 	/** nom */
-	@Column(name = "NOM", length = 250, nullable = false, unique = true)
+	@Column(name = "NOM", length = 250, nullable = true, unique = true)
 	private String nom;
-	
-	/** code */
-	@Column(name = "CODE", length = 50, nullable = true, unique = true)
-	private String code;
 	
 	/** produits */
 	@ManyToMany
@@ -44,10 +40,19 @@ public class Additif {
 	 */
 	public Additif() {
 	}
+	
+	/** Constructeur
+	 * @param nom
+	 * @param code
+	 */
+	public Additif(String nom) {
+		super();
+		this.nom = nom;
+	}
 
 	@Override
 	public String toString() {
-		return "Additif: " + nom + ", id: " + id + ", code: " + code + ".";
+		return "Additif: " + nom + ", id: " + id + ".";
 	}
 
 	/** Getter
@@ -76,20 +81,6 @@ public class Additif {
 	 */
 	public void setNom(String nom) {
 		this.nom = nom;
-	}
-
-	/** Getter
-	 * @return the code
-	 */
-	public String getCode() {
-		return code;
-	}
-
-	/** Setter
-	 * @param code the code to set
-	 */
-	public void setCode(String code) {
-		this.code = code;
 	}
 
 	/** Getter

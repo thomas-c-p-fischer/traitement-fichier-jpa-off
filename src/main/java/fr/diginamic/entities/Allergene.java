@@ -41,6 +41,14 @@ public class Allergene {
 	public Allergene() {
 	}
 
+	/** Constructeur pour la requête SELECT
+	 * @param nom
+	 */
+	public Allergene(String nom) {
+		super();
+		this.nom = nom;
+	}
+
 	@Override
 	public String toString() {
 		return "Allergene: " + nom + ", id: " + id + ".";

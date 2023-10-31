@@ -3,7 +3,6 @@ package fr.diginamic.entities;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,13 +24,9 @@ public class Ingredient {
 	private Integer id;
 	
 	/** nom */
-	@Column(name = "NOM", length = 250, nullable = false, unique = true)
+	@Column(name = "NOM", length = 1000, nullable = false, unique = true)
 	private String nom;
-	
-	/** pourcentage */
-	@Column(name = "POURCENTAGE", nullable = false)
-	private float pourcentage;
-	
+
 	/** produits */
 	@ManyToMany
 	@JoinTable(name = "PODUIT_INGREDIENT",
@@ -45,9 +40,17 @@ public class Ingredient {
 	public Ingredient() {
 	}
 
+	/** Constructeur pour la requête SELECT
+	 * @param nom
+	 */
+	public Ingredient(String nom) {
+		super();
+		this.nom = nom;
+	}
+
 	@Override
 	public String toString() {
-		return "Ingredient: " + nom + ", id: " + id + ", pourcentage: " + pourcentage + "%.";
+		return "Ingredient: " + nom + ", id: " + id + ".";
 	}
 
 	/** Getter
@@ -76,20 +79,6 @@ public class Ingredient {
 	 */
 	public void setNom(String nom) {
 		this.nom = nom;
-	}
-
-	/** Getter
-	 * @return the pourcentage
-	 */
-	public float getPourcentage() {
-		return pourcentage;
-	}
-
-	/** Setter
-	 * @param pourcentage the pourcentage to set
-	 */
-	public void setPourcentage(float pourcentage) {
-		this.pourcentage = pourcentage;
 	}
 
 	/** Getter
