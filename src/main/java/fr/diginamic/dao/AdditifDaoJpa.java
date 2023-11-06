@@ -23,19 +23,17 @@ public class AdditifDaoJpa implements AdditifDao {
 	/**
 	 * Constructeur Dao
 	 */
-	public AdditifDaoJpa() {
-		emf = Persistence.createEntityManagerFactory("food-facts");
+	public AdditifDaoJpa(EntityManagerFactory emf) {
+		this.emf = emf;
 	}
 
 	@Override
 	public void insert(Additif additif) {
 		EntityManager em = emf.createEntityManager();
 		try {
-			em.getTransaction().begin();
 			Additif additifInsert = new Additif();
 			additifInsert.setNom(additif.getNom());
 			em.persist(additifInsert);
-			em.getTransaction().commit();
 		} finally {
 			em.close();
 		}

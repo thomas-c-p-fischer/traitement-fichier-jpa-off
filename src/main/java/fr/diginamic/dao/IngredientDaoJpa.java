@@ -14,19 +14,17 @@ public class IngredientDaoJpa implements IngredientDao {
 	/**
 	 * Constructeur Dao
 	 */
-	public IngredientDaoJpa() {
-		emf = Persistence.createEntityManagerFactory("food-facts");
+	public IngredientDaoJpa(EntityManagerFactory emf) {
+		this.emf = emf;
 	}
 
 	@Override
 	public void insert(Ingredient ingredient) {
 		EntityManager em = emf.createEntityManager();
 		try {
-			em.getTransaction().begin();
 			Ingredient ingredientInsert = new Ingredient();
 			ingredientInsert.setNom(ingredient.getNom());
 			em.persist(ingredientInsert);
-			em.getTransaction().commit();
 		} finally {
 			em.close();
 		}

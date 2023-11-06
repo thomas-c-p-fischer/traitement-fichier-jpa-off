@@ -1,13 +1,7 @@
 package fr.diginamic.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
 import fr.diginamic.entities.Produit;
 import fr.diginamic.entities.ValeurNutritionnelle;
 
@@ -20,15 +14,14 @@ public class ValeurNutritionnelleDaoJpa implements ValeurNutritionnelleDao {
 	/**
 	 * Constructeur Dao
 	 */
-	public ValeurNutritionnelleDaoJpa() {
-		emf = Persistence.createEntityManagerFactory("food-facts");
+	public ValeurNutritionnelleDaoJpa(EntityManagerFactory emf) {
+		this.emf = emf;
 	}
 
 	@Override
 	public void insert(ValeurNutritionnelle valeurNutritionnelle, Produit produit) {
 		EntityManager em = emf.createEntityManager();
 		try {
-			em.getTransaction().begin();
 			ValeurNutritionnelle insertValeurNutritionnelle = new ValeurNutritionnelle();
 			insertValeurNutritionnelle.setEnergie100g(valeurNutritionnelle.getEnergie100g());
 			insertValeurNutritionnelle.setGraisse100g(valeurNutritionnelle.getGraisse100g());
@@ -38,7 +31,6 @@ public class ValeurNutritionnelleDaoJpa implements ValeurNutritionnelleDao {
 			insertValeurNutritionnelle.setSel100g(valeurNutritionnelle.getSel100g());
 			insertValeurNutritionnelle.setProduit(produit);			
 			em.persist(insertValeurNutritionnelle);
-			em.getTransaction().commit();
 		} finally {
 			em.close();
 		}

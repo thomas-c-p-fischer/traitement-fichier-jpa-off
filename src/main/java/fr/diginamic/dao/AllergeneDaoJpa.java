@@ -21,19 +21,17 @@ public class AllergeneDaoJpa implements AllergeneDao {
 	/**
 	 * Constructeur Dao
 	 */
-	public AllergeneDaoJpa() {
-		emf = Persistence.createEntityManagerFactory("food-facts");
+	public AllergeneDaoJpa(EntityManagerFactory emf) {
+		this.emf = emf;
 	}
 
 	@Override
 	public void insert(Allergene allergene) {
 		EntityManager em = emf.createEntityManager();
 		try {
-			em.getTransaction().begin();
 			Allergene allergeneInsert = new Allergene();
 			allergeneInsert.setNom(allergene.getNom());
 			em.persist(allergeneInsert);
-			em.getTransaction().commit();
 		} finally {
 			em.close();
 		}

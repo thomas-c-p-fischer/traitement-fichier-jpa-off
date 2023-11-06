@@ -16,8 +16,8 @@ public class CategorieDaoJpa implements CategorieDao {
 	/**
 	 * Constructeur Dao
 	 */
-	public CategorieDaoJpa() {
-		emf = Persistence.createEntityManagerFactory("food-facts");
+	public CategorieDaoJpa(EntityManagerFactory emf) {
+		this.emf = emf;
 	}
 
 	@Override
@@ -40,11 +40,9 @@ public class CategorieDaoJpa implements CategorieDao {
 	public void insert(Categorie categorie) {
 		EntityManager em = emf.createEntityManager();
 		try {
-			em.getTransaction().begin();
 			Categorie categorieInsert = new Categorie();
 			categorieInsert.setNom(categorie.getNom());
 			em.persist(categorieInsert);
-			em.getTransaction().commit();
 		} finally {
 			em.close();
 		}

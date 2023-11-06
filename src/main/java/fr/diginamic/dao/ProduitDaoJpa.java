@@ -29,17 +29,15 @@ public class ProduitDaoJpa implements ProduitDao {
 	/**
 	 * Constructeur Dao
 	 */
-	public ProduitDaoJpa() {
-		emf = Persistence.createEntityManagerFactory("food-facts");
+	public ProduitDaoJpa(EntityManagerFactory emf) {
+		this.emf = emf;
 	}
 
-	
 	@Override
 	public void insert(Produit produit, String nomCategorie, String nomMarque, Set<String> nomsIngredients,
 			Set<String> nomsAdditifs, Set<String> nomsAllergenes) {
 		EntityManager em = emf.createEntityManager();
 		try {
-			em.getTransaction().begin();
 			Categorie categorie = em.createQuery("SELECT c FROM Categorie c WHERE c.nom = :nom", Categorie.class)
 					.setParameter("nom", nomCategorie)
 					.getSingleResult();
@@ -77,7 +75,6 @@ public class ProduitDaoJpa implements ProduitDao {
 			produitInsert.setAdditifs(additifs);
 			produitInsert.setAllergenes(allergenes);
 			em.persist(produitInsert);
-			em.getTransaction().commit();
 		} finally {
 			em.close();
 		}

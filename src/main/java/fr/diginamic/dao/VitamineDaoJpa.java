@@ -1,14 +1,7 @@
 package fr.diginamic.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
 import fr.diginamic.entities.Produit;
 import fr.diginamic.entities.Vitamine;
 
@@ -21,15 +14,14 @@ public class VitamineDaoJpa implements VitamineDao {
 	/**
 	 * Constructeur Dao
 	 */
-	public VitamineDaoJpa() {
-		emf = Persistence.createEntityManagerFactory("food-facts");
+	public VitamineDaoJpa(EntityManagerFactory emf) {
+		this.emf = emf;
 	}
 
     @Override
     public void insert(Vitamine vitamine, Produit produit) {
     	EntityManager em = emf.createEntityManager();
     	try {
-    		em.getTransaction().begin();
     		Vitamine vitamineInsert = new Vitamine();
     		vitamineInsert.setBetaCarotene100g(vitamine.getBetaCarotene100g());
     		vitamineInsert.setCalcium100g(vitamine.getCalcium100g());
@@ -49,7 +41,6 @@ public class VitamineDaoJpa implements VitamineDao {
     		vitamineInsert.setVitPP100g(vitamine.getVitPP100g());
     		vitamineInsert.setProduit(produit);
             em.persist(vitamineInsert);
-            em.getTransaction().commit();
 		} finally {
 			em.close();
 		}

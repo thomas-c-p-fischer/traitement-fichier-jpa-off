@@ -10,18 +10,21 @@ import fr.diginamic.entities.Marque;
 /** Classe avec les méthodes SQL concernant Marque */
 public class MarqueDaoJpa implements MarqueDao {
 
-    private EntityManagerFactory emf;
+	/** emf */
+	private EntityManagerFactory emf;
 
-    public MarqueDaoJpa() {
-        emf = Persistence.createEntityManagerFactory("food-facts");
-    }
+	/**
+	 * Constructeur Dao
+	 */
+	public MarqueDaoJpa(EntityManagerFactory emf) {
+		this.emf = emf;
+	}
 
     @Override
     public List<Marque> extraire() {
         List<Marque> marques = new ArrayList<>();
         EntityManager em = emf.createEntityManager();
         try {
-            // Utilisez l'EntityManager pour effectuer des opérations JPA ici
             marques = em.createQuery("SELECT m FROM Marque m", Marque.class).getResultList();
             for (Marque marqueExtract : marques) {
                 Marque marque = new Marque(marqueExtract.getNom());
@@ -37,11 +40,9 @@ public class MarqueDaoJpa implements MarqueDao {
     public void insert(Marque marque) {
         EntityManager em = emf.createEntityManager();
         try {
-            em.getTransaction().begin();
             Marque marqueInsert = new Marque();
             marqueInsert.setNom(marque.getNom());
             em.persist(marqueInsert);
-            em.getTransaction().commit();
         } finally {
             em.close();
         }
